@@ -1,0 +1,1 @@
+console.log('CONNECTED !!!! hello typescript by Parcel !!')
