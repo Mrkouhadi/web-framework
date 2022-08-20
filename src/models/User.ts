@@ -2,10 +2,14 @@ interface UserProps{
     name?: string; // ? means optional
     age?: number;
 }
-type Callback = ()=>{};
+
+type Callback = ()=>void;
 
 // class User
 export class User{
+    // in on method, we will get events and store them here :
+     events:{[key: string] : Callback[] } = {};
+
     constructor(private data:UserProps){}
 
      get(propName:string): string | number {
@@ -19,6 +23,8 @@ export class User{
      }
 
      on(eventName: string, callbackFunc:Callback):void{
-        document.addEventListener(eventName, callbackFunc);
+       const arrayOfCallbacks = this.events[eventName] || [];
+       arrayOfCallbacks.push(callbackFunc);
+        this.events[eventName] = arrayOfCallbacks;
      }
 }

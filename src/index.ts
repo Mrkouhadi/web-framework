@@ -1,8 +1,17 @@
 import { User } from "./models/User";
 
 const bryan = new User({name:"Bryan", age:30});
-bryan.get("name");
-bryan.set({name:"Mr.kouhadi"});
 
+bryan.on("click", ()=>{
+    console.log("event has been CLICKED !");
+})
 
-bryan.get("name");
+bryan.on("click", ()=>{
+    console.log("event has been CLICKED !");
+})
+
+bryan.on("hover", ()=>{
+    console.log("event has been HOVERED !");
+})
+
+console.log(bryan);
