@@ -9,8 +9,7 @@ type Callback = ()=>void;
 export class User{
     // in on method, we will get events and store them here :
      events:{[key: string] : Callback[] } = {};
-
-    constructor(private data:UserProps){}
+     constructor(private data:UserProps){}
 
      get(propName:string): string | number {
         console.log(this.data[propName])
@@ -25,6 +24,11 @@ export class User{
      on(eventName: string, callbackFunc:Callback):void{
        const arrayOfCallbacks = this.events[eventName] || [];
        arrayOfCallbacks.push(callbackFunc);
-        this.events[eventName] = arrayOfCallbacks;
+       this.events[eventName] = arrayOfCallbacks;
+     }
+     trigger(eventName:string):void{
+        const handlers = this.events[eventName];
+        if(!handlers || handlers.length === 0 ) return;
+        handlers.forEach(callbackFunction => callbackFunction());
      }
 }
