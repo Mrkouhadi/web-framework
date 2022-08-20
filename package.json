@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "(npx parcel ./index.html) & npx parcel watch ./index.html"
+    "start:parcel": "(npx parcel ./index.html) & npx parcel watch ./index.html",
+    "start:db": "json-server --watch db.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.7.0"
+    "buffer": "^6.0.3",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "axios": "^0.27.2"

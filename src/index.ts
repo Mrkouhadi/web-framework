@@ -1,17 +1,9 @@
 import { User } from "./models/User";
 
-const bryan = new User({name:"Bryan", age:30});
+const user = new User({id:2});
 
-bryan.on("click", ()=>{
-    console.log("event has been CLICKED 1 !");
-})
+user.fetch();
 
-bryan.on("click", ()=>{
-    console.log("event has been CLICKED 2 !");
-})
-
-bryan.on("hover", ()=>{
-    console.log("event has been HOVERED !");
-})
-
-bryan.trigger('click');
+setTimeout(()=>{
+    console.log(user);
+},3000)

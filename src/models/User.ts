@@ -1,4 +1,7 @@
+import axios, { AxiosResponse } from "axios";
+
 interface UserProps{
+    id?:number
     name?: string; // ? means optional
     age?: number;
 }
@@ -12,13 +15,11 @@ export class User{
      constructor(private data:UserProps){}
 
      get(propName:string): string | number {
-        console.log(this.data[propName])
          return this.data[propName]
      }
 
      set(update:UserProps):void{
          Object.assign(this.data, update) // it's like : this.data = update; override the data;
-         console.log("data has been updated !",update )
      }
 
      on(eventName: string, callbackFunc:Callback):void{
@@ -26,9 +27,17 @@ export class User{
        arrayOfCallbacks.push(callbackFunc);
        this.events[eventName] = arrayOfCallbacks;
      }
+
      trigger(eventName:string):void{
         const handlers = this.events[eventName];
         if(!handlers || handlers.length === 0 ) return;
         handlers.forEach(callbackFunction => callbackFunction());
+     }
+
+     fetch():void{
+        axios.get(`http://localhost:3000/users/${this.get('id')}`)
+        .then((response: AxiosResponse):void=>{
+            this.set(response.data)
+        })
      }
 }
