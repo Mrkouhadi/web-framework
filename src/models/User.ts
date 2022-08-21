@@ -6,12 +6,9 @@ interface UserProps {
     age?: number;
 }
 
-type Callback = () => void;
 
 // class User
 export class User {
-    // in on method, we will get events and store them here :
-    events: { [key: string]: Callback[] } = {};
 
     constructor(private data: UserProps) { }
 
@@ -21,18 +18,6 @@ export class User {
 
     set(update: UserProps): void { // edit obj in: new User(obj)
         Object.assign(this.data, update) // it's like : this.data = update; override the data;
-    }
-
-    on(eventName: string, callbackFunc: Callback): void {
-        const arrayOfCallbacks = this.events[eventName] || [];
-        arrayOfCallbacks.push(callbackFunc);
-        this.events[eventName] = arrayOfCallbacks;
-    }
-
-    trigger(eventName: string): void {
-        const handlers = this.events[eventName];
-        if (!handlers || handlers.length === 0) return;
-        handlers.forEach(callbackFunction => callbackFunction());
     }
 
     fetch(): void {
