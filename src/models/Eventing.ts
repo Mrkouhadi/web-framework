@@ -7,7 +7,7 @@ export class Eventing{
     on(eventName: string, callbackFunc: Callback): void {
         const arrayOfCallbacks = this.events[eventName] || [];
         arrayOfCallbacks.push(callbackFunc);
-        this.events[eventName] = arrayOfCallbacks;
+        this.events[eventName] = arrayOfCallbacks; // store events
     }
 
     trigger(eventName: string): void {
