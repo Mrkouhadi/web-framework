@@ -1,6 +1,11 @@
+import axios from "axios";
 import { User } from "./models/User";
 
-const user = new User({id:3});
+const usr = User.buildUser({id:1, name:"Jhon Doe", age:90});
 
-user.events.on("hover", ()=> console.log('Hoverrrred ! '))
-user.events.trigger('hover')
+usr.on("change", ()=>{
+    console.log('usr details have CHANGED !', usr.get('name'))
+});
+usr.fetch();
+
+

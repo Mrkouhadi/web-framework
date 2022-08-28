@@ -1,6 +1,8 @@
+import axios, { AxiosResponse } from "axios";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
-import { Sync } from "./Sync";
+import { Model } from "./Model";
+import { SyncApi } from "./SyncAPI";
 
 export interface UserProps {
     id?: number
@@ -9,25 +11,17 @@ export interface UserProps {
 }
 
 const rootUrl = "http://localhost:3000/users"
+
 // class User
-export class User {
-    public events: Eventing = new Eventing();
-    public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
-    public attributes: Attributes<UserProps>;
+export class User extends Model <UserProps> {
 
-    constructor(attrs: UserProps){
-        this.attributes = new Attributes<UserProps>(attrs);
+    static buildUser(attrs: UserProps): User {
+        return new User(
+                    new Attributes<UserProps>(attrs),
+                    new Eventing(),
+                    new SyncApi<UserProps>(rootUrl),
+        );
     }
 
-    get on(){ // const user = new User({..}) _  user.on('click', ()=>{....})
-        return this.events.on; // get a refrence of events.on method 
-    }
-    get trigger(){ 
-        return this.events.trigger; 
-    }
-    get get(){ 
-        return this.attributes.get; 
-    }
 
 }
-

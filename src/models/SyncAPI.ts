@@ -3,9 +3,11 @@ import axios, { AxiosPromise } from "axios"
 interface HasId{
     id?:number
 }
-export class Sync<T extends HasId>{
+export class SyncApi<T extends HasId>{
 
     constructor(public rootUrl: string){}
+
+
     fetch(id:number): AxiosPromise {
        return axios.get(`${this.rootUrl}/${id}`);
         // the response will be taken care of when calling fetch(id).then(....)
@@ -16,7 +18,7 @@ export class Sync<T extends HasId>{
         if(id){
             return axios.put(`${this.rootUrl}/${id}`, data)
         }else{
-           return  axios.post(this.rootUrl, data)
+            return  axios.post(this.rootUrl, data)
         }            
     }
 }
