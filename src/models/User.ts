@@ -22,6 +22,4 @@ export class User extends Model <UserProps> {
                     new SyncApi<UserProps>(rootUrl),
         );
     }
-
-
 }
