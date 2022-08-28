@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from "axios";
 import { Attributes } from "./Attributes";
+import { Collection } from "./Collection";
 import { Eventing } from "./Eventing";
 import { Model } from "./Model";
 import { SyncApi } from "./SyncAPI";
@@ -21,5 +21,10 @@ export class User extends Model <UserProps> {
                     new Eventing(),
                     new SyncApi<UserProps>(rootUrl),
         );
+    }
+    static getUsersCollection():Collection<User, UserProps>{
+        return new Collection<User, UserProps>(rootUrl, (json:UserProps)=>{
+                 return User.buildUser(json);
+                });
     }
 }
