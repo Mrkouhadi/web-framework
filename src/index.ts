@@ -1,11 +1,6 @@
-import axios from "axios";
-import { User } from "./models/User";
+import { UserForm } from "./views/UserForm";
 
-const usr = User.buildUser({id:1, name:"Jhon Doe", age:90});
+const root = document.getElementById("root");
+const userForm = new UserForm(root)
 
-usr.on("change", ()=>{
-    console.log('usr details have CHANGED !', usr.get('name'))
-});
-usr.fetch();
-
-
+userForm.render();
