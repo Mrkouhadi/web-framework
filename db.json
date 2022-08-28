@@ -2,18 +2,13 @@
   "users": [
     {
       "id": 1,
-      "name": "kouhadi bryan",
-      "age": 31
+      "name": "Jhon Doe",
+      "age": 90
     },
     {
       "id": 2,
-      "name": "Mr.kouhadi",
-      "age": 30
-    },
-    {
-      "id": 3,
-      "name": "Mr.kouhadi",
-      "age": 3333
+      "name": "zineb zoubiriiiii",
+      "age": 255
     }
   ]
 }
