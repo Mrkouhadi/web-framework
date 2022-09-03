@@ -1,45 +1,48 @@
+import { User, UserProps } from "../models/User";
+import { View } from "./View";
 
+export class UserForm extends View<User, UserProps>{
 
-export class UserForm{
-   constructor(public  parent: Element){}
-
-   eventsMap(): {[key:string]:()=>void} {
+   eventsMap(): { [key:string]:() => void } {
        return {
-           'click:button':()=>this.onButtonClick(),
-           'mouseenter:h1':()=>this.onh1Hover(),
+            'click:.set-age':()=> this.onSetAgeClick(),  // another example 'mouseenter:h1':()=>this.onh1Hover(),
+            'click:.set-name':()=>this.onSetNameClick(),
+            'click:.save-model':()=>this.onSaveClick(),
+        }
+   }
 
-       }
+   onSaveClick=():void=>{
+       this.Model.save()
    }
-   onh1Hover():void{
-       console.log('Hovered over an h1 tag');
+   onSetAgeClick=():void=>{
+       this.Model.setRandomAge();
    }
-   onButtonClick():void{
-       console.log("You just clicked this button !!")
+   onSetNameClick=():void=>{
+        const input = this.parent.querySelector('input');
+        if(input){
+            const name = input.value;
+            this.Model.set({name})
+        }
    }
-    template():string{
+   
+   template():string{
         return `
                 <div>
-                    <h1>User Form</h1>
-                    <input type="text" placeholder="type something..." />
-                    <button> ClickMe </button>
+                <style>
+                    div{
+                        padding:20px;
+                        background-color:pink;
+                    }
+                    input, button{
+                        padding:6px;
+                    }
+                </style>
+                    <input type="text" placeholder="${this.Model.get('name')}" />
+                    <button class="set-name"> Change Name </button>
+                    <button class="set-age"> Set a Random Age </button>
+                    <button class="save-model"> Save User </button>
                 </div>
                 `
     }
 
-    bindEvents(fragment: DocumentFragment):void{
-        const eventsMap = this.eventsMap();
-        for(let eventKey in eventsMap){
-            const [eventName, selector] = eventKey.split(":");
-            fragment.querySelectorAll(selector).forEach(el =>{
-                 el.addEventListener(eventName, eventsMap[eventKey]);
-            })
-        }
-    }
-    render():void{
-        const templateElement = document.createElement("template");
-        templateElement.innerHTML = this.template();
-
-        this.bindEvents(templateElement.content)
-        this.parent.append(templateElement.content)
-    }
 }
