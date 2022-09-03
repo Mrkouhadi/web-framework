@@ -10,39 +10,27 @@ export class UserForm extends View<User, UserProps>{
             'click:.save-model':()=>this.onSaveClick(),
         }
    }
-
    onSaveClick=():void=>{
-       this.Model.save()
+       this.model.save()
    }
    onSetAgeClick=():void=>{
-       this.Model.setRandomAge();
+       this.model.setRandomAge();
    }
    onSetNameClick=():void=>{
         const input = this.parent.querySelector('input');
         if(input){
             const name = input.value;
-            this.Model.set({name})
+            this.model.set({name})
         }
    }
-   
    template():string{
         return `
                 <div>
-                <style>
-                    div{
-                        padding:20px;
-                        background-color:pink;
-                    }
-                    input, button{
-                        padding:6px;
-                    }
-                </style>
-                    <input type="text" placeholder="${this.Model.get('name')}" />
+                    <input type="text" placeholder="${this.model.get('name')}" />
                     <button class="set-name"> Change Name </button>
                     <button class="set-age"> Set a Random Age </button>
                     <button class="save-model"> Save User </button>
                 </div>
                 `
     }
-
 }
