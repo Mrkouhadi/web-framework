@@ -14,12 +14,12 @@ export class Collection<T, K> { // T : user, blog, post .... K is for the interf
         return this.Events.trigger;
     }
 
-    fetch(){
+    fetch():void{
         axios.get(this.rootUrl).then((res:AxiosResponse) => {
             res.data.forEach((val:K)=>{
                 this.Models.push(this.deserialize(val));
             })
+            this.trigger("change");
         })
-        this.trigger("change");
     }
 }

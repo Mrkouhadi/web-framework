@@ -8,9 +8,11 @@ const users = new Collection(URL, (json:UserProps)=>{
                         return User.buildUser(json)
                     })
 
-users.on("change", ()=>{
-    const root = document.getElementById("root");
-    if(root) new UserList(root, users).render();
-})
-
-users.fetch()
+users.on('change', () => {
+    const root = document.getElementById('root');
+    if (root) {
+      new UserList(root, users).render();
+    }
+  });
+  
+  users.fetch();
