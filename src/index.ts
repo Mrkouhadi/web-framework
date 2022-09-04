@@ -1,16 +1,18 @@
-import { User } from "./models/User";
-import { UserEdit } from "./views/UserEdit";
+import { Collection } from "./models/Collection";
+import { User, UserProps } from "./models/User";
+import { UserList } from "./views/UserList";
 
-// The user and root 
-const user = User.buildUser({name:"kouhadi aboubakr essaddik", age:31})
-const root = document.getElementById("root");
 
-// generate a new user edit
-if(root){
-    const userEdit = new UserEdit(root, user)
-    userEdit.render();
-    console.log(userEdit);
-    
-}else{
-    throw new Error("Can't find the root element ! please make sure your added a root a element in the html file")
-} 
+const URL = "http://localhost:3000/users"
+const users = new Collection(URL, (json:UserProps)=>{
+                        return User.buildUser(json)
+                    })
+
+users.on('change', () => {
+    const root = document.getElementById('root');
+    if (root) {
+      new UserList(root, users).render();
+    }
+  });
+  
+  users.fetch();
