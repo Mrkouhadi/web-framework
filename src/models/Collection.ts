@@ -1,7 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-
 import { Eventing } from "./Eventing";
-import { User, UserProps } from "./User";
 
 export class Collection<T, K> { // T : user, blog, post .... K is for the interface like UserProps
     Models: T[] = [];
